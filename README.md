@@ -26,4 +26,4 @@ This is a simple repository that is meant for helping get the Integrated Lights-
 ## Disclaimers
 > I am not sponsored by or affiliated with Hewlett-Packard Company (HP), Hewlett-Packard Enterprise (HPE), and/or any of its affiliates.
 
-> All of the tools here are downloadable through either HPE's Official Website, and the public web.
+> All of the tools here are available through either HPE's Official Website, and the public web.
