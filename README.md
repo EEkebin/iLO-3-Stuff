@@ -1,10 +1,15 @@
 # iLO-3-Stuff
-This is a simple repository that is meant for helping get the Integrated Lights-Out 3 running and accessible
+This is a simple repository that is meant for helping get the Integrated Lights-Out 3 running and accessible.
 
+Sometimes, iLO 3 with Default Settings will not allow you to connect via the Standalone Remote Console. It will also disallow the connection through the web portal. Tools and steps in this guide will *hopefully* get them operational and accessible.
+
+**These steps were produced using my knowledge of HPE Proliant DL380 G7. Although, I imagine that they wont be too different, if at all, for different versions of servers as well.**
+
+***
 
 ## HPE Integrated Lights-Out Standalone Remote Console for Windows
 ### **Download links**
-> Direct Links maybe broken or outdated. If so, please use the pages to download. 
+> Direct Links maybe broken or outdated. If so, please use the pages to download.
 
 1. Hewlett-Packard Enterprise
     * [Official Page](https://support.hpe.com/connect/s/softwaredetails?language=en_US&softwareId=MTX_bc8e3ffa59904ec3b505d9964d)
@@ -15,7 +20,72 @@ This is a simple repository that is meant for helping get the Integrated Lights-
     * [Direct Link](https://archive.org/download/hpe-lights-out-standalone-remote-console-for-windows/Setup.exe)
 
 
-## Connect iLO Through SSH
+## Connect to iLO via SSH
+Connecting to iLO via SSH requires two extra parameters.
+    
+    1. -oHostKeyAlgorithms
+    2. -oKexAlgorithms
+
+> Any steps proceeding have variables, such as **<EXAMPLE_VARIABLE>**.  
+> Please replace these, including the arrows, with their respective, correct value.
+
+1. Connect iLO port to a network that you can access.
+
+2. Obtain the IP Address of iLO by either setting it as static through Configure iLO inside of the server.
+
+3. Make a user of iLO through Configure iLO, or through Configure iLO. 
+
+4. Attempt a connection via SSH, with its given IP, through a different device that has network access to iLO.
+    ```sh
+    ssh <USERNAME>@<IP_ADDRESS>
+    ```
+
+    > **For example:**
+    > ```sh
+    > ssh Administrator@192.168.1.2
+    > ```
+
+    You will get a response back that looks something like the following:
+    ```
+    Unable to negotiate with <IP_ADDRESS> port 22: no matching key exchange method found. Their offer: <list-of-words-or-names>
+    ```
+    > *In my case, the list-of-words-or-names was **diffie-hellman-group14-sha1,diffie-hellman-group1-sha1***
+
+    Given this, you have your *-oKexAlgorithms* parameter.
+
+5. Attempt a second connection via SSH with the *-oKexAlgorithms* parameter included.
+    ```sh
+    ssh -oKexAlgorithms=+"<list-of-words-or-names>" <USERNAME>@<IP_ADDRESS>
+    ```
+    
+    > **For example:**
+    > ```sh
+    > ssh -oKexAlgorithms=+"diffie-hellman-group14-sha1,diffie-hellman-group1-sha1" Administrator@192.168.1.2
+    > ```
+
+    You will get a similar response to the previous. Something like the following:
+    ```
+    Unable to negotiate with 192.168.1.25 port 22: no matching host key type found. Their offer: <list-2>
+    ```
+
+    > *In my case, the list-2 was **ssh-dss***
+
+    Given this, you have your *-oHostKeyAlgorithms* parameter.
+
+6. Finally, make a successful connection with iLO using these two parameters via SSH.
+    ```sh
+    ssh -oKexAlgorithms=+"diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256" -oHostKeyAlgorithms=+"ssh-dss" root@192.168.1.25
+    ```
+
+    > **For example:**
+    > ```sh
+    > ssh -oKexAlgorithms=+"diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256" -oHostKeyAlgorithms=+"ssh-dss" Administrator@192.168.1.2
+    > ```
+
+    After specifying the password, you will be greeted to some information about the status of the session, the server, and iLO.
+
+
+## Updating iLO through SSH
 > *To be implemented.*
 
 
@@ -26,4 +96,4 @@ This is a simple repository that is meant for helping get the Integrated Lights-
 ## Disclaimers
 > I am not sponsored by or affiliated with Hewlett-Packard Company (HP), Hewlett-Packard Enterprise (HPE), and/or any of its affiliates.
 
-> All of the tools here are available through either HPE's Official Website, and the public web.
+> All of the tools and information here are available through either HPE's Official Website, and/or the public web.
