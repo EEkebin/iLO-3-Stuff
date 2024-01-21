@@ -15,7 +15,7 @@ This is a simple repository that is meant for helping get the Integrated Lights-
     * [Direct Link](https://archive.org/download/hpe-lights-out-standalone-remote-console-for-windows/Setup.exe)
 
 
-## Update iLO Through SSH
+## Connect iLO Through SSH
 > *To be implemented.*
 
 
