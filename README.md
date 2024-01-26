@@ -124,7 +124,7 @@ Connecting to iLO via SSH requires two extra parameters.
    > **For example:**
    >
    > ```sh
-   > load -source https://example.com/ilo3-1.89/ilo3_189.bin
+   > load -source https://example.com/ilo3-1.94/ilo3_194.bin
    > ```
 
 5. Wait for the iLO to update. This could disconnect your SSH connection to iLO.
