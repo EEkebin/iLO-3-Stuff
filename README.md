@@ -1,6 +1,24 @@
-# iLO-3-Stuff
+# iLO-Debugging and Others
 
 This is a simple repository that is meant for helping get the Integrated Lights-Out 3 running and accessible.
+
+## Contents
+
+1. [Introduction](#introduction)
+
+2. [HPE Integrated Lights-Out Standalone Remote Console](#hpe-integrated-lights-out-standalone-remote-console-for-windows)
+
+3. [Connect to iLO via SSH](#connect-to-ilo-via-ssh)
+
+4. [Updating iLO through SSH](#updating-ilo-through-ssh)
+
+5. [Credits](#credits)
+
+6. [Disclaimers](#disclaimers)
+
+---
+
+## Introduction
 
 Sometimes, iLO 3 with Default Settings will not allow you to connect via the Standalone Remote Console. It will also disallow the connection through the web portal. Tools and steps in this guide will _hopefully_ get them operational and accessible.
 
@@ -107,9 +125,9 @@ Connecting to iLO via SSH requires two extra parameters.
 
    Retrieve the **_.bin_** file. This is the firmware of iLO.
 
-2. Connect to iLO ssh via the steps above.
+2. [Connect to iLO SSH.](#connect-to-ilo-via-ssh)
 
-3. Navigate to the Firmware Directory
+3. Navigate to the `/map1/firmware1` directory.
 
    ```sh
    cd /map1/firmware1
@@ -128,6 +146,24 @@ Connecting to iLO via SSH requires two extra parameters.
    > ```
 
 5. Wait for the iLO to update. This could disconnect your SSH connection to iLO.
+
+## Fix AES Encryption to allow access to the web portal of iLO.
+
+1. [Connect to iLO via SSH.](#connect-to-ilo-via-ssh)
+
+2. Navigate to the `/map1/config1` directory.
+
+   ```sh
+   cd /map1/config1
+   ```
+
+3. Set the Enforce AES Encryption property to yes.
+
+   ```sh
+   set /map1/config1 oemhp_enforce_aes=yes
+   ```
+
+4. Wait for the iLO to reboot. This could disconnect your SSH connection to iLO.
 
 ## Credits
 
