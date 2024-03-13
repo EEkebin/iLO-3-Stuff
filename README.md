@@ -14,7 +14,9 @@ This is a simple repository that is meant for helping get the Integrated Lights-
 
 5. [Credits](#credits)
 
-6. [Disclaimers](#disclaimers)
+6. [License](#license)
+
+7. [Disclaimers](#disclaimers)
 
 ---
 
@@ -168,6 +170,10 @@ Connecting to iLO via SSH requires two extra parameters.
 ## Credits
 
 > [EEkebin](https://github.com/EEkebin)
+
+## License
+
+> [This documentation is licensed under the GNU General Public License v3.0.](https://github.com/EEkebin/iLO-Debugging-and-Others/blob/main/LICENSE)
 
 ## Disclaimers
 
